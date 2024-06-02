@@ -6,16 +6,23 @@ import session from 'express-session';
 import morgan from 'morgan';
 import { env } from './utils/env.js';
 import dotenv from 'dotenv';
-import { getAllContacts, getContactById } from './services/contacts.js';
+import contactsRouter from './routes/contacts.js';
+import { errorHandler } from './middlewares/errorHandlers.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 dotenv.config();
 
-const PORT = Number(env('PORT'));
+const PORT = Number(env('PORT', '3000'));
 
 export const setupServer = () => {
   const app = express();
 
-  app.use(express.json());
+  app.use(
+    express.json({
+      type: ['application/json', 'application/vnd.api+json'],
+      limit: '100kb',
+    }),
+  );
   app.use(express.urlencoded({ extended: true }));
 
   app.use(
@@ -39,70 +46,18 @@ export const setupServer = () => {
     }),
   );
 
-  app.get('/contacts', async (req, res) => {
-    try {
-      const contacts = await getAllContacts();
-      res.status(200).json({
-        status: 'success',
-        message: 'Successfully found contacts!',
-        data: contacts,
-      });
-    } catch (error) {
-      res.status(500).json({
-        status: 'error',
-        message: error.message,
-      });
-    }
+  app.get('/', (req, res) => {
+    res.send(`
+      <p> Go to <a href="/contacts">contacts list</a></p>
+    `);
   });
 
-  app.get('/contacts/:contactId', async (req, res) => {
-    try {
-      const contact = await getContactById(req.params.contactId);
-      if (contact) {
-        res.status(200).json({
-          status: 'success',
-          message: `Successfully found contact with id ${req.params.contactId}!`,
-          data: contact,
-        });
-      } else {
-        res.status(404).json({
-          status: 'error',
-          message: `Contact with id ${req.params.contactId} not found!`,
-        });
-      }
-    } catch (error) {
-      res.status(500).json({
-        status: 'error',
-        message: error.message,
-      });
-    }
+  app.use(contactsRouter);
+
+  app.use('*', notFoundHandler);
+  app.use(errorHandler);
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
   });
-
-  app.use(express.static('public'));
-
-  app.use('*', (req, res, next) => {
-    res.status(404).json({
-      message: 'Route not found',
-    });
-  });
-
-  app.use((err, req, res, next) => {
-    res.status(500).json({
-      message: 'Internal Server Error',
-      error: err.message,
-    });
-  });
-
-  app
-    .listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    })
-    .on('error', (err) => {
-      if (err.code === 'EADDRINUSE') {
-        console.error(`Port ${PORT} is already in use`);
-        process.exit(1);
-      } else {
-        throw err;
-      }
-    });
 };

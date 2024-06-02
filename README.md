@@ -33,32 +33,6 @@ Once the server is running, you can access the following API endpoints:
 - **GET /api/contacts**: Retrieve all contacts.
 - **GET /api/contacts/:contactId**: Retrieve a contact by ID.
 
-## API Endpoints
 
-### Get All Contacts
-
-- **URL**: `/api/contacts`
-- **Method**: `GET`
-- **Response**:
-    ```json
-    {
-      "status": "success",
-      "message": "Successfully found contacts!",
-      "data": [...]
-    }
-    ```
-
-### Get Contact by ID
-
-- **URL**: `/api/contacts/:contactId`
-- **Method**: `GET`
-- **Response**:
-    ```json
-    {
-      "status": "success",
-      "message": "Successfully found contact with id {contactId}!",
-      "data": {...}
-    }
-    ```
 
 

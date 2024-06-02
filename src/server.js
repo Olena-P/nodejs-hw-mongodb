@@ -71,10 +71,17 @@ export const setupServer = () => {
         });
       }
     } catch (error) {
-      res.status(500).json({
-        status: 'error',
-        message: error.message,
-      });
+      if (error.name === 'CastError' && error.kind === 'ObjectId') {
+        res.status(404).json({
+          status: 'error',
+          message: `Invalid ID format: ${req.params.contactId}`,
+        });
+      } else {
+        res.status(500).json({
+          status: 'error',
+          message: error.message,
+        });
+      }
     }
   });
 

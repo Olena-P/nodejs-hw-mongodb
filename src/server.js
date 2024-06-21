@@ -6,7 +6,9 @@ import session from 'express-session';
 import morgan from 'morgan';
 import { env } from './utils/env.js';
 import dotenv from 'dotenv';
-import contactsRouter from './routes/contacts.js';
+import cookieParser from 'cookie-parser';
+import router from './routes/index.js';
+// import contactsRouter from './routes/contacts.js';
 import { errorHandler } from './middlewares/errorHandlers.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
@@ -48,14 +50,18 @@ export const setupServer = () => {
 
   app.get('/', (req, res) => {
     res.send(`
-      <p> Go to <a href="/contacts">contacts list</a></p>
+      <p>Go to <a href="/contacts">contacts list</a></p>
     `);
   });
 
-  app.use(contactsRouter);
+  app.use(router);
+
+  // app.use(contactsRouter);
 
   app.use('*', notFoundHandler);
   app.use(errorHandler);
+
+  app.use(cookieParser());
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

@@ -11,38 +11,38 @@ import { authenticate } from '../middlewares/authenticate.js';
 import { checkRoles } from '../middlewares/checkRoles.js';
 import { ROLES } from '../constants/index.js';
 
-const router = Router();
+const contactsRouter = Router();
 
-router.use(authenticate);
+contactsRouter.use(authenticate);
 
-router.get(
-  '/contacts',
+contactsRouter.get(
+  '/',
   checkRoles(ROLES.OWNER, ROLES.PARENT),
   ctrlWrapper(contactsController.getAllContactsController),
 );
-router.get(
-  '/contacts/:contactId',
+contactsRouter.get(
+  '/:contactId',
   isValidId,
   ctrlWrapper(contactsController.getContactByIdController),
 );
-router.post(
-  '/contacts',
+contactsRouter.post(
+  '/',
   checkRoles(ROLES.OWNER, ROLES.PARENT),
   validateBody(createContactSchema),
   ctrlWrapper(contactsController.createContactController),
 );
-router.patch(
-  '/contacts/:contactId',
+contactsRouter.patch(
+  '/:contactId',
   checkRoles(ROLES.OWNER, ROLES.PARENT),
   isValidId,
   validateBody(updateContactSchema),
   ctrlWrapper(contactsController.updateContactController),
 );
-router.delete(
-  '/contacts/:contactId',
+contactsRouter.delete(
+  '/:contactId',
   checkRoles(ROLES.OWNER, ROLES.PARENT),
   isValidId,
   ctrlWrapper(contactsController.deleteContactController),
 );
 
-export default router;
+export default contactsRouter;

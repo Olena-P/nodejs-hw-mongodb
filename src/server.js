@@ -7,8 +7,7 @@ import morgan from 'morgan';
 import { env } from './utils/env.js';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import router from './routes/index.js';
-// import contactsRouter from './routes/contacts.js';
+import rootRouter from './routes/index.js';
 import { errorHandler } from './middlewares/errorHandlers.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
@@ -54,9 +53,7 @@ export const setupServer = () => {
     `);
   });
 
-  app.use(router);
-
-  // app.use(contactsRouter);
+  app.use(rootRouter);
 
   app.use('*', notFoundHandler);
   app.use(errorHandler);

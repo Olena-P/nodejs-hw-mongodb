@@ -51,8 +51,11 @@ export const loginUser = async (loginData) => {
   });
 };
 
-export const logoutUser = async (sessionId) => {
-  await SessionsCollection.deleteOne({ _id: sessionId });
+export const logoutUser = async (sessionId, refreshToken) => {
+  await SessionsCollection.deleteOne({
+    _id: sessionId,
+    refreshToken,
+  });
 };
 
 const createSession = () => {

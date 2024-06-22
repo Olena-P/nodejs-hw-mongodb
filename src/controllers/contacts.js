@@ -22,8 +22,15 @@ export const getAllContactsController = async (req, res, next) => {
     res.status(200).json({
       status: 200,
       message: 'Successfully found contacts!',
-      data: { data: contacts },
-      pagination: paginationData,
+      data: {
+        data: contacts,
+        page: paginationData.page,
+        perPage: paginationData.perPage,
+        totalItems: paginationData.totalItems,
+        totalPages: paginationData.totalPages,
+        hasPreviousPage: paginationData.hasPreviousPage,
+        hasNextPage: paginationData.hasNextPage,
+      },
     });
   } catch (error) {
     next(error);

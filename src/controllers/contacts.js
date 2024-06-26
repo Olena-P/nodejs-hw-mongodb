@@ -39,19 +39,17 @@ export const getAllContactsController = async (req, res, next) => {
 
 export const getContactByIdController = async (req, res, next) => {
   try {
-    const contact = await contactsService.getContactById(req.params.contactId);
+    const { contactId } = req.params;
+    const contact = await contactsService.getContactById(contactId);
     if (!contact) {
       return next(createHttpError(404, 'Contact not found'));
     }
     res.status(200).json({
       status: 200,
-      message: `Successfully found contact with id ${req.params.contactId}!`,
+      message: `Successfully found contact with id ${contactId}!`,
       data: contact,
     });
   } catch (error) {
-    if (error.name === 'CastError') {
-      return next(createHttpError(400, 'Invalid contact ID format'));
-    }
     next(error);
   }
 };
@@ -71,10 +69,8 @@ export const createContactController = async (req, res, next) => {
 
 export const updateContactController = async (req, res, next) => {
   try {
-    const contact = await contactsService.updateContact(
-      req.params.contactId,
-      req.body,
-    );
+    const { contactId } = req.params;
+    const contact = await contactsService.updateContact(contactId, req.body);
     if (!contact) {
       return next(createHttpError(404, 'Contact not found'));
     }
@@ -84,16 +80,14 @@ export const updateContactController = async (req, res, next) => {
       data: contact,
     });
   } catch (error) {
-    if (error.name === 'CastError') {
-      return next(createHttpError(400, 'Invalid contact ID format'));
-    }
     next(error);
   }
 };
 
 export const deleteContactController = async (req, res, next) => {
   try {
-    const contact = await contactsService.deleteContact(req.params.contactId);
+    const { contactId } = req.params;
+    const contact = await contactsService.deleteContact(contactId);
     if (!contact) {
       return next(createHttpError(404, 'Contact not found'));
     }
@@ -102,9 +96,6 @@ export const deleteContactController = async (req, res, next) => {
       message: 'Successfully deleted a contact!',
     });
   } catch (error) {
-    if (error.name === 'CastError') {
-      return next(createHttpError(400, 'Invalid contact ID format'));
-    }
     next(error);
   }
 };

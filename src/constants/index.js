@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 export const ENV_VARS = {
   PORT: 'PORT',
 };
@@ -29,4 +31,7 @@ export const SMTP = {
   SMTP_PASSWORD: 'SMTP_PASSWORD',
   SMTP_FROM: 'SMTP_FROM',
   JWT_SECRET: 'JWT_SECRET',
+  FRONTEND_HOST: 'FRONTEND_HOST',
 };
+
+export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');

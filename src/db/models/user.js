@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { ROLES } from '../../constants/index.js';
+// import { ROLES } from '../../constants/index.js';
 
 const usersSchema = new Schema(
   {
@@ -13,11 +13,11 @@ const usersSchema = new Schema(
     password: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    role: {
-      type: String,
-      enum: [ROLES.OWNER, ROLES.PARENT],
-      default: ROLES.PARENT,
-    },
+    // role: {
+    //   type: String,
+    //   enum: [ROLES.OWNER, ROLES.PARENT],
+    //   default: ROLES.PARENT,
+    // },
   },
   { timestamps: true, versionKey: false },
 );

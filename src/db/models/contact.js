@@ -12,7 +12,7 @@ const ContactSchema = new Schema(
       required: true,
       default: 'personal',
     },
-    parentId: { type: Schema.Types.ObjectId, ref: 'users' },
+    // parentId: { type: Schema.Types.ObjectId, ref: 'users' },
     userId: { type: Schema.Types.ObjectId, ref: 'users', required: true },
   },
   { timestamps: true },

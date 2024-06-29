@@ -15,7 +15,16 @@ const ContactSchema = new Schema(
     // parentId: { type: Schema.Types.ObjectId, ref: 'users' },
     userId: { type: Schema.Types.ObjectId, ref: 'users', required: true },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: {
+      transform: function (doc, ret) {
+        delete ret.__v;
+        return ret;
+      },
+    },
+    versionKey: false,
+  },
 );
 
 export const ContactCollection = model('contacts', ContactSchema);

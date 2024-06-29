@@ -13,7 +13,7 @@ export const createContactSchema = Joi.object({
   email: Joi.string().email().allow(null),
   isFavourite: Joi.boolean().required(),
   contactType: Joi.string().valid('personal', 'home').required(),
-  parentId: Joi.string().required(),
+  // parentId: Joi.string().required(),
   // userId: Joi.string().required(),
 });
 

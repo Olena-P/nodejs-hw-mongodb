@@ -27,7 +27,7 @@ export const checkRoles =
 
       const contact = await ContactCollection.findOne({
         _id: contactId,
-        parentId: user._id,
+        // parentId: user._id,
       });
 
       if (contact) {

@@ -10,6 +10,7 @@ import {
 import { authenticate } from '../middlewares/authenticate.js';
 // import { checkRoles } from '../middlewares/checkRoles.js';
 // import { ROLES } from '../constants/index.js';
+import { upload } from '../middlewares/multer.js';
 
 const contactsRouter = Router();
 
@@ -18,6 +19,7 @@ contactsRouter.use(authenticate);
 contactsRouter.get(
   '/',
   // checkRoles(ROLES.OWNER, ROLES.PARENT),
+  upload.single('photo'),
   ctrlWrapper(contactsController.getAllContactsController),
 );
 contactsRouter.get(
@@ -36,6 +38,7 @@ contactsRouter.patch(
   // checkRoles(ROLES.OWNER, ROLES.PARENT),
   isValidId,
   validateBody(updateContactSchema),
+  upload.single('photo'),
   ctrlWrapper(contactsController.updateContactController),
 );
 contactsRouter.delete(

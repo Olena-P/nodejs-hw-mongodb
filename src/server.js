@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import rootRouter from './routes/index.js';
 import { errorHandler } from './middlewares/errorHandlers.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ export const setupServer = () => {
       <p>Go to <a href="/contacts">contacts list</a></p>
     `);
   });
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use(rootRouter);
 

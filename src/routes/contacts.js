@@ -30,6 +30,7 @@ contactsRouter.get(
 contactsRouter.post(
   '/',
   // checkRoles(ROLES.OWNER, ROLES.PARENT),
+  upload.single('photo'),
   validateBody(createContactSchema),
   ctrlWrapper(contactsController.createContactController),
 );
@@ -37,8 +38,8 @@ contactsRouter.patch(
   '/:contactId',
   // checkRoles(ROLES.OWNER, ROLES.PARENT),
   isValidId,
-  validateBody(updateContactSchema),
   upload.single('photo'),
+  validateBody(updateContactSchema),
   ctrlWrapper(contactsController.updateContactController),
 );
 contactsRouter.delete(

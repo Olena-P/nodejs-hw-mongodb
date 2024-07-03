@@ -8,12 +8,20 @@ info:
   description: >
     <An application for working with a collection of contacts>
 tags:
-  # теги, що ви будете використовувати
+  - name: Students
+    description: Operations about students.
+  - name: Auth
+    description: Auth operations.
 servers:
   - url: <http://localhost:3000>
   - url: <https://nodejs-hw-mongodb-e18j.onrender.com> #посилання на задеплоєний сайт 
 paths:
-  # тут будуть посилання на ендпоінти
+  /contacts:
+    post:
+      $ref: ../swagger/paths/contacts/post.yaml #додаємо ще один шлях
+  /contacts/{id}:
+    get:
+      $ref: ../swagger/paths/contacts/{id}/get.yaml
 components:
   securitySchemes:
     bearerAuth:

@@ -1,8 +1,16 @@
 tags:
   - Contacts
-summary: Create a new contact
-operationId: createContact
-description: Create a new contact with provided details
+summary: Update a contact by ID
+operationId: updateContactById
+description: Update a single contact by its ID
+parameters:
+  - in: path
+    name: id
+    required: true
+    description: ID of the contact to update
+    schema:
+      type: string
+      example: '66538e731c2dc811b051b936'
 requestBody:
   required: true
   content:
@@ -12,21 +20,17 @@ requestBody:
         properties:
           name:
             type: string
-            description: Name of the contact
           email:
             type: string
             format: email
-            description: Email address of the contact
           phone:
             type: string
-            description: Phone number of the contact
           photo:
             type: string
             format: binary
-            description: Photo of the contact
 responses:
-  '201':
-    description: Contact created successfully
+  '200':
+    description: Contact updated successfully
     content:
       application/json:
         schema:
@@ -34,17 +38,17 @@ responses:
           properties:
             status:
               type: integer
-              example: 201
+              example: 200
             message:
               type: string
-              example: Successfully created a contact!
+              example: Successfully updated contact with ID 66538e731c2dc811b051b936!
             data:
-              $ref: ..\..\components\schemas\contacts.yaml
-  '400':
-    description: Bad request, invalid data provided
+              $ref: ..\..\..\components\schemas\contacts.yaml
+  '404':
+    description: Contact not found
     content:
       application/json:
         schema:
-          $ref: ..\..\components\responses\400.yaml
+          $ref: '../../../components/responses/404.yaml'
 security:
   - bearerAuth: []

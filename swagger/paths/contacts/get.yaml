@@ -1,70 +1,45 @@
 tags:
   - Contacts
-summary: Get list of contacts
-operationId: getContacts
-description: 'Get list of users with this endpoint'
-security:
-  - bearerAuth: []
+summary: Get all contacts
+operationId: getAllContacts
+description: Retrieve all contacts
 parameters:
   - in: query
     name: page
     schema:
       type: integer
-    example: 1
+      minimum: 1
+      default: 1
+    description: Page number for pagination
   - in: query
     name: perPage
     schema:
       type: integer
-      example: 10
+      minimum: 1
+      maximum: 100
+      default: 10
+    description: Number of items per page
   - in: query
     name: sortBy
     schema:
       type: string
-      example: 'age'
-    description: "All student's fields can be mentioned. Default value - _id"
+      enum: [name, email, phone]
+      default: name
+    description: Field to sort by
   - in: query
     name: sortOrder
     schema:
       type: string
-      enum: ['asc', 'desc']
-      example: 'asc'
-  - in: query
-    name: minAvgMark
-    schema:
-      type: number
-      example: 4
-  - in: query
-    name: maxAvgMark
-    schema:
-      type: number
-      example: 10
-  - in: query
-    name: minAge
-    schema:
-      type: number
-      example: 10
-  - in: query
-    name: maxAge
-    schema:
-      type: number
-      example: 16
-  - in: query
-    name: gender
-    schema:
-      type: string
-      enum: ['male', 'female', 'other']
-      example: male
+      enum: [asc, desc]
+      default: asc
+    description: Sort order (ascending or descending)
 responses:
   '200':
-    description: Successfully found contacts!
+    description: Successfully retrieved contacts
     content:
       application/json:
         schema:
           type: object
-          required:
-            - status
-            - message
-            - data
           properties:
             status:
               type: integer
@@ -74,37 +49,28 @@ responses:
               example: Successfully found contacts!
             data:
               type: object
-              required:
-                - data
-                - page
-                - perPage
-                - totalItems
-                - totalPages
-                - hasNextPage
-                - hasPreviousPage
               properties:
                 data:
                   type: array
                   items:
-                    $ref: '../../components/schemas/contact.yaml'
+                    $ref: ..\..\components\schemas\contacts.yaml
                 page:
-                  type: number
-                  example: 2
+                  type: integer
                 perPage:
-                  type: number
-                  example: 4
+                  type: integer
                 totalItems:
-                  type: number
-                  example: 4
+                  type: integer
                 totalPages:
-                  type: number
-                  example: 4
-                hasNextPage:
-                  type: boolean
-                  example: false
+                  type: integer
                 hasPreviousPage:
                   type: boolean
-                  example: true
-  '401':
-    $ref: '../../components/responses/401.yaml'
-
+                hasNextPage:
+                  type: boolean
+  '404':
+    description: Contacts not found
+    content:
+      application/json:
+        schema:
+          $ref: ..\..\components\responses\404.yaml
+security:
+  - bearerAuth: []

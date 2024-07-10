@@ -1,0 +1,93 @@
++--- .idea/
+    +--- inspectionProfiles/
+        +--- Project_Default.xml
+    +--- .gitignore
+    +--- modules.xml
+    +--- nodejs-hw-mongodb.iml
+    +--- vcs.xml
+    +--- workspace.xml
++--- docs/
+    +--- index.html
+    +--- openapi.yaml
+    +--- swagger.json
++--- src/
+    +--- constants/
+        +--- index.js
+    +--- controllers/
+        +--- auth.js
+        +--- contacts.js
+    +--- db/
+        +--- models/
+            +--- contact.js
+            +--- session.js
+            +--- user.js
+        +--- initMongoConnection.js
+    +--- middlewares/
+        +--- authenticate.js
+        +--- checkRoles.js
+        +--- errorHandlers.js
+        +--- isValidId.js
+        +--- multer.js
+        +--- notFoundHandler.js
+        +--- swaggerDocs.js
+        +--- validateBody.js
+    +--- routes/
+        +--- auth.js
+        +--- contacts.js
+        +--- index.js
+    +--- services/
+        +--- auth.js
+        +--- contacts.js
+    +--- templates/
+        +--- reset-password-email.html
+    +--- tests/
+    +--- utils/
+        +--- calculatePaginationData.js
+        +--- createDirIfNotExists.js
+        +--- ctrlWrapper.js
+        +--- env.js
+        +--- parseFilterParams.js
+        +--- parsePaginationParams.js
+        +--- parseSortParams.js
+        +--- saveFileToCloudinary.js
+        +--- saveFileToUploadDir.js
+        +--- sendMail.js
+    +--- validation/
+        +--- auth.js
+        +--- contactSchemas.js
+    +--- index.js
+    +--- server.js
++--- swagger/
+    +--- components/
+        +--- responses/
+            +--- 200.yaml
+            +--- 201.yaml
+            +--- 204.yaml
+            +--- 400.yaml
+            +--- 401.yaml
+            +--- 404.yaml
+        +--- schemas/
+            +--- contacts.yaml
+    +--- paths/
+        +--- auth/
+            +--- login.yaml
+        +--- contacts/
+            +--- {id}/
+                +--- delete.yaml
+                +--- get.yaml
+                +--- patch.yaml
+            +--- get.yaml
+            +--- post.yaml
++--- temp/
++--- uploads/
++--- .env
++--- .env.example
++--- .eslintrc
++--- .gitignore
++--- .prettierrc
++--- crud.todo
++--- eslint.config.mjs
++--- package-lock.json
++--- package.json
++--- README.md
++--- redocly.yaml
